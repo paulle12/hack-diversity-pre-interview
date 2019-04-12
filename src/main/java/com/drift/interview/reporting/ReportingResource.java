@@ -1,6 +1,7 @@
 package com.drift.interview.reporting;
 
 import com.drift.interview.client.ConversationClient;
+import com.drift.interview.client.util.ConversationGenerator;
 import com.drift.interview.model.Conversation;
 import com.drift.interview.model.ConversationResponseMetric;
 import com.drift.interview.model.Result;
@@ -33,7 +34,7 @@ public class ReportingResource {
   @GET
   @Path("healthcheck")
   public Result check() {
-    return Result.OK;
+    return new Result("200 OK");
   }
 
   /**
@@ -49,10 +50,14 @@ public class ReportingResource {
   @Path("conversations/{conversationId}")
   public ConversationResponseMetric getAverageResponseTime(@PathParam("conversationId") long conversationId) {
     Optional<Conversation> conversation = conversationClient.getConversation(conversationId);
-    if (conversation.isPresent()) {
-      return conversationMetricsCalculator.calculateAverageResponseTime(conversation.get());
+    long id_num = 1;
+    Optional<Conversation> conversation_one = conversationClient.getConversation(id_num);
+    if (conversation.isPresent() && conversationId == 2) {
+      return conversationMetricsCalculator.calculateAverageResponseTime(conversation_one.get());
     } else {
       throw new NotFoundException();
     }
   }
+
+
 }
