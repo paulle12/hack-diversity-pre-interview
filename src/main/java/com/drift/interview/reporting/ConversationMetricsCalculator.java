@@ -21,10 +21,10 @@ public class ConversationMetricsCalculator {
     // implement me!
     for (int i = 1; i < messages.size(); i++) {
       if(messages.get(i).isTeamMember() && !messages.get(i - 1).isTeamMember()) {
-        j = messages.get(i).getCreatedAt();
-        j -= k;
+        k = messages.get(i).getCreatedAt();
+        k -= j;
         count++;
-        sum += j;
+        sum += k;
       }
       else if (!messages.get(i).isTeamMember() && messages.get(i - 1).isTeamMember()){
         j = messages.get(i).getCreatedAt();
